@@ -119,30 +119,15 @@ export const HeroPlaceholder: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Architecture & Stack Teaser */}
-                  <div className="border-t border-coir-tan/20 pt-4 space-y-2">
+                  {/* Artisan Craftsmanship Heritage Card */}
+                  <div className="border-t border-coir-tan/20 pt-4 space-y-3">
                     <div className="flex items-center justify-between text-xs text-charcoal/70">
-                      <span className="font-medium text-roasted-coconut">Architectural Boundary</span>
-                      <span className="font-mono text-[11px] text-palm-green font-semibold">Strict API Facade</span>
+                      <span className="font-serif font-medium text-roasted-coconut italic">The Master Carver's Touch</span>
+                      <span className="text-[11px] font-sans text-palm-green font-medium">100% Hand-Polished</span>
                     </div>
-                    <div className="bg-warm-cream rounded-lg p-2.5 border border-coir-tan/20 font-mono text-[11px] text-charcoal/80 space-y-1">
-                      <div className="flex justify-between">
-                        <span className="text-sage">Frontend:</span>
-                        <span>React + TypeScript + Vite</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-sage">API Facade:</span>
-                        <span>Express (Port 4000)</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-sage">Content CMS:</span>
-                        <span>Strapi (Port 1337)</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-sage">Business DB:</span>
-                        <span>SQLite (server/data/cococraft.db)</span>
-                      </div>
-                    </div>
+                    <p className="text-xs text-charcoal/75 leading-relaxed font-light">
+                      Each piece carries the natural grain, texture, and organic contours of the Kerala backwater palms, sealed only with natural cold-pressed coconut oil.
+                    </p>
                   </div>
 
                 </div>
