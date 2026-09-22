@@ -1,0 +1,37 @@
+# Node dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment files
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Express SQLite Business Database
+server/data/*.db
+server/data/*.db-journal
+server/data/*.db-wal
+server/data/*.db-shm
+
+# Strapi SQLite CMS Database & Temporary files
+cms/.tmp/
+cms/.strapi/
+cms/build/
+cms/dist/
+cms/.cache/
+
+# Build artifacts
+dist/
+build/
+coverage/
+
+# OS and Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
