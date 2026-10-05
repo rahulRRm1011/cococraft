@@ -1,0 +1,3451 @@
+[
+  {
+    "name": "admin_sessions",
+    "sql": "CREATE TABLE admin_sessions (\n      id TEXT PRIMARY KEY,\n      admin_user_id TEXT NOT NULL REFERENCES admin_users(id) ON DELETE CASCADE,\n      token_hash TEXT UNIQUE NOT NULL,\n      expires_at DATETIME NOT NULL,\n      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,\n      last_used_at DATETIME DEFAULT CURRENT_TIMESTAMP\n    )",
+    "rowCount": 6,
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "admin_user_id",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "token_hash",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "expires_at",
+        "type": "DATETIME",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "created_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "last_used_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      }
+    ],
+    "foreignKeys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "admin_users",
+        "from": "admin_user_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "idx_admin_sessions_expires_at",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 3,
+            "name": "expires_at"
+          }
+        ]
+      },
+      {
+        "seq": 1,
+        "name": "idx_admin_sessions_admin_user_id",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "admin_user_id"
+          }
+        ]
+      },
+      {
+        "seq": 2,
+        "name": "idx_admin_sessions_token_hash",
+        "unique": 1,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 2,
+            "name": "token_hash"
+          }
+        ]
+      },
+      {
+        "seq": 3,
+        "name": "sqlite_autoindex_admin_sessions_2",
+        "unique": 1,
+        "origin": "u",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 2,
+            "name": "token_hash"
+          }
+        ]
+      },
+      {
+        "seq": 4,
+        "name": "sqlite_autoindex_admin_sessions_1",
+        "unique": 1,
+        "origin": "pk",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 0,
+            "name": "id"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "admin_users",
+    "sql": "CREATE TABLE admin_users (\n      id TEXT PRIMARY KEY,\n      email TEXT UNIQUE NOT NULL,\n      password_hash TEXT NOT NULL,\n      display_name TEXT NOT NULL,\n      role TEXT NOT NULL DEFAULT 'admin',\n      is_active INTEGER NOT NULL DEFAULT 1,\n      last_login_at DATETIME,\n      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,\n      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP\n    )",
+    "rowCount": 13,
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "email",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "password_hash",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "display_name",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "role",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "'admin'",
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "is_active",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": "1",
+        "pk": 0
+      },
+      {
+        "cid": 6,
+        "name": "last_login_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 7,
+        "name": "created_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      },
+      {
+        "cid": 8,
+        "name": "updated_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      }
+    ],
+    "foreignKeys": [],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "idx_admin_users_role",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 4,
+            "name": "role"
+          }
+        ]
+      },
+      {
+        "seq": 1,
+        "name": "idx_admin_users_email",
+        "unique": 1,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "email"
+          }
+        ]
+      },
+      {
+        "seq": 2,
+        "name": "sqlite_autoindex_admin_users_2",
+        "unique": 1,
+        "origin": "u",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "email"
+          }
+        ]
+      },
+      {
+        "seq": 3,
+        "name": "sqlite_autoindex_admin_users_1",
+        "unique": 1,
+        "origin": "pk",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 0,
+            "name": "id"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "cart_items",
+    "sql": "CREATE TABLE cart_items (\n      id INTEGER PRIMARY KEY AUTOINCREMENT,\n      cart_id TEXT NOT NULL REFERENCES carts(id) ON DELETE CASCADE,\n      product_document_id TEXT NOT NULL,\n      product_slug TEXT NOT NULL,\n      quantity INTEGER NOT NULL CHECK (quantity >= 1 AND quantity <= 99),\n      unit_price REAL NOT NULL,\n      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,\n      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,\n      UNIQUE(cart_id, product_document_id)\n    )",
+    "rowCount": 7,
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "INTEGER",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "cart_id",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "product_document_id",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "product_slug",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "quantity",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "unit_price",
+        "type": "REAL",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 6,
+        "name": "created_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      },
+      {
+        "cid": 7,
+        "name": "updated_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      }
+    ],
+    "foreignKeys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "carts",
+        "from": "cart_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "idx_cart_items_slug",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 3,
+            "name": "product_slug"
+          }
+        ]
+      },
+      {
+        "seq": 1,
+        "name": "idx_cart_items_cart_id",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "cart_id"
+          }
+        ]
+      },
+      {
+        "seq": 2,
+        "name": "sqlite_autoindex_cart_items_1",
+        "unique": 1,
+        "origin": "u",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "cart_id"
+          },
+          {
+            "seqno": 1,
+            "cid": 2,
+            "name": "product_document_id"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "carts",
+    "sql": "CREATE TABLE carts (\n      id TEXT PRIMARY KEY,\n      status TEXT NOT NULL DEFAULT 'active',\n      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,\n      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP\n    )",
+    "rowCount": 48,
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "status",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "'active'",
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "created_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "updated_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      }
+    ],
+    "foreignKeys": [],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "sqlite_autoindex_carts_1",
+        "unique": 1,
+        "origin": "pk",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 0,
+            "name": "id"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "coupons",
+    "sql": "CREATE TABLE coupons (\n      id TEXT PRIMARY KEY,\n      code TEXT UNIQUE NOT NULL,\n      discount_type TEXT NOT NULL,\n      discount_value INTEGER NOT NULL CHECK (discount_value > 0),\n      minimum_order_amount INTEGER NOT NULL DEFAULT 0,\n      maximum_discount INTEGER,\n      start_date DATETIME,\n      expiry_date DATETIME,\n      usage_limit INTEGER,\n      used_count INTEGER NOT NULL DEFAULT 0,\n      status TEXT NOT NULL DEFAULT 'active',\n      created_at DATETIME DEFAULT CURRENT_TIMESTAMP\n    )",
+    "rowCount": 9,
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "code",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "discount_type",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "discount_value",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "minimum_order_amount",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": "0",
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "maximum_discount",
+        "type": "INTEGER",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 6,
+        "name": "start_date",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 7,
+        "name": "expiry_date",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 8,
+        "name": "usage_limit",
+        "type": "INTEGER",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 9,
+        "name": "used_count",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": "0",
+        "pk": 0
+      },
+      {
+        "cid": 10,
+        "name": "status",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "'active'",
+        "pk": 0
+      },
+      {
+        "cid": 11,
+        "name": "created_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      }
+    ],
+    "foreignKeys": [],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "idx_coupons_status",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 10,
+            "name": "status"
+          }
+        ]
+      },
+      {
+        "seq": 1,
+        "name": "idx_coupons_code",
+        "unique": 1,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "code"
+          }
+        ]
+      },
+      {
+        "seq": 2,
+        "name": "sqlite_autoindex_coupons_2",
+        "unique": 1,
+        "origin": "u",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "code"
+          }
+        ]
+      },
+      {
+        "seq": 3,
+        "name": "sqlite_autoindex_coupons_1",
+        "unique": 1,
+        "origin": "pk",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 0,
+            "name": "id"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "customer_addresses",
+    "sql": "CREATE TABLE customer_addresses (\n      id TEXT PRIMARY KEY,\n      customer_id TEXT NOT NULL REFERENCES customers(id) ON DELETE CASCADE,\n      name TEXT NOT NULL,\n      phone TEXT NOT NULL,\n      address_line_1 TEXT NOT NULL,\n      address_line_2 TEXT,\n      city TEXT NOT NULL,\n      state TEXT NOT NULL,\n      postal_code TEXT NOT NULL,\n      country TEXT NOT NULL DEFAULT 'India',\n      is_default INTEGER NOT NULL DEFAULT 0,\n      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,\n      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP\n    )",
+    "rowCount": 3,
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "customer_id",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "name",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "phone",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "address_line_1",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "address_line_2",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 6,
+        "name": "city",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 7,
+        "name": "state",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 8,
+        "name": "postal_code",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 9,
+        "name": "country",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "'India'",
+        "pk": 0
+      },
+      {
+        "cid": 10,
+        "name": "is_default",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": "0",
+        "pk": 0
+      },
+      {
+        "cid": 11,
+        "name": "created_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      },
+      {
+        "cid": 12,
+        "name": "updated_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      }
+    ],
+    "foreignKeys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "customers",
+        "from": "customer_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "idx_customer_addresses_customer_id",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "customer_id"
+          }
+        ]
+      },
+      {
+        "seq": 1,
+        "name": "sqlite_autoindex_customer_addresses_1",
+        "unique": 1,
+        "origin": "pk",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 0,
+            "name": "id"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "customer_events",
+    "sql": "CREATE TABLE customer_events (\n      id TEXT PRIMARY KEY,\n      customer_id TEXT REFERENCES customers(id) ON DELETE SET NULL,\n      event_type TEXT NOT NULL,\n      reference_id TEXT,\n      metadata TEXT,\n      created_at DATETIME DEFAULT CURRENT_TIMESTAMP\n    )",
+    "rowCount": 60,
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "customer_id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "event_type",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "reference_id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "metadata",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "created_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      }
+    ],
+    "foreignKeys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "customers",
+        "from": "customer_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "SET NULL",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "idx_customer_events_created_at",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 5,
+            "name": "created_at"
+          }
+        ]
+      },
+      {
+        "seq": 1,
+        "name": "idx_customer_events_type",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 2,
+            "name": "event_type"
+          }
+        ]
+      },
+      {
+        "seq": 2,
+        "name": "idx_customer_events_customer_id",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "customer_id"
+          }
+        ]
+      },
+      {
+        "seq": 3,
+        "name": "sqlite_autoindex_customer_events_1",
+        "unique": 1,
+        "origin": "pk",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 0,
+            "name": "id"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "customer_sessions",
+    "sql": "CREATE TABLE customer_sessions (\n      id TEXT PRIMARY KEY,\n      customer_id TEXT NOT NULL REFERENCES customers(id) ON DELETE CASCADE,\n      token_hash TEXT UNIQUE NOT NULL,\n      expires_at DATETIME NOT NULL,\n      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,\n      last_used_at DATETIME DEFAULT CURRENT_TIMESTAMP\n    )",
+    "rowCount": 9,
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "customer_id",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "token_hash",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "expires_at",
+        "type": "DATETIME",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "created_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "last_used_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      }
+    ],
+    "foreignKeys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "customers",
+        "from": "customer_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "idx_customer_sessions_expires_at",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 3,
+            "name": "expires_at"
+          }
+        ]
+      },
+      {
+        "seq": 1,
+        "name": "idx_customer_sessions_customer_id",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "customer_id"
+          }
+        ]
+      },
+      {
+        "seq": 2,
+        "name": "idx_customer_sessions_token_hash",
+        "unique": 1,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 2,
+            "name": "token_hash"
+          }
+        ]
+      },
+      {
+        "seq": 3,
+        "name": "sqlite_autoindex_customer_sessions_2",
+        "unique": 1,
+        "origin": "u",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 2,
+            "name": "token_hash"
+          }
+        ]
+      },
+      {
+        "seq": 4,
+        "name": "sqlite_autoindex_customer_sessions_1",
+        "unique": 1,
+        "origin": "pk",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 0,
+            "name": "id"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "customers",
+    "sql": "CREATE TABLE customers (\n      id TEXT PRIMARY KEY,\n      email TEXT UNIQUE NOT NULL,\n      password_hash TEXT NOT NULL,\n      name TEXT NOT NULL,\n      phone TEXT,\n      status TEXT NOT NULL DEFAULT 'active',\n      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,\n      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,\n      last_login_at DATETIME\n    )",
+    "rowCount": 9,
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "email",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "password_hash",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "name",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "phone",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "status",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "'active'",
+        "pk": 0
+      },
+      {
+        "cid": 6,
+        "name": "created_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      },
+      {
+        "cid": 7,
+        "name": "updated_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      },
+      {
+        "cid": 8,
+        "name": "last_login_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      }
+    ],
+    "foreignKeys": [],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "idx_customers_status",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 5,
+            "name": "status"
+          }
+        ]
+      },
+      {
+        "seq": 1,
+        "name": "idx_customers_email",
+        "unique": 1,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "email"
+          }
+        ]
+      },
+      {
+        "seq": 2,
+        "name": "sqlite_autoindex_customers_2",
+        "unique": 1,
+        "origin": "u",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "email"
+          }
+        ]
+      },
+      {
+        "seq": 3,
+        "name": "sqlite_autoindex_customers_1",
+        "unique": 1,
+        "origin": "pk",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 0,
+            "name": "id"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "guest_order_sessions",
+    "sql": "CREATE TABLE guest_order_sessions (\n      session_token TEXT PRIMARY KEY,\n      order_id TEXT NOT NULL REFERENCES orders(id) ON DELETE CASCADE,\n      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,\n      expires_at DATETIME NOT NULL\n    )",
+    "rowCount": 33,
+    "columns": [
+      {
+        "cid": 0,
+        "name": "session_token",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "order_id",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "created_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "expires_at",
+        "type": "DATETIME",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      }
+    ],
+    "foreignKeys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "orders",
+        "from": "order_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "idx_guest_order_sessions_order_id",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "order_id"
+          }
+        ]
+      },
+      {
+        "seq": 1,
+        "name": "sqlite_autoindex_guest_order_sessions_1",
+        "unique": 1,
+        "origin": "pk",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 0,
+            "name": "session_token"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "inventory_items",
+    "sql": "CREATE TABLE inventory_items (\n      id TEXT PRIMARY KEY,\n      product_reference TEXT UNIQUE NOT NULL,\n      sku TEXT UNIQUE NOT NULL,\n      available_quantity INTEGER NOT NULL DEFAULT 0 CHECK (available_quantity >= 0),\n      reserved_quantity INTEGER NOT NULL DEFAULT 0 CHECK (reserved_quantity >= 0),\n      sold_quantity INTEGER NOT NULL DEFAULT 0 CHECK (sold_quantity >= 0),\n      low_stock_threshold INTEGER NOT NULL DEFAULT 5 CHECK (low_stock_threshold >= 0),\n      status TEXT NOT NULL DEFAULT 'active',\n      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,\n      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP\n    )",
+    "rowCount": 29,
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "product_reference",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "sku",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "available_quantity",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": "0",
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "reserved_quantity",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": "0",
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "sold_quantity",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": "0",
+        "pk": 0
+      },
+      {
+        "cid": 6,
+        "name": "low_stock_threshold",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": "5",
+        "pk": 0
+      },
+      {
+        "cid": 7,
+        "name": "status",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "'active'",
+        "pk": 0
+      },
+      {
+        "cid": 8,
+        "name": "created_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      },
+      {
+        "cid": 9,
+        "name": "updated_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      }
+    ],
+    "foreignKeys": [],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "idx_inventory_items_status",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 7,
+            "name": "status"
+          }
+        ]
+      },
+      {
+        "seq": 1,
+        "name": "idx_inventory_items_sku",
+        "unique": 1,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 2,
+            "name": "sku"
+          }
+        ]
+      },
+      {
+        "seq": 2,
+        "name": "idx_inventory_items_product_ref",
+        "unique": 1,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "product_reference"
+          }
+        ]
+      },
+      {
+        "seq": 3,
+        "name": "sqlite_autoindex_inventory_items_3",
+        "unique": 1,
+        "origin": "u",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 2,
+            "name": "sku"
+          }
+        ]
+      },
+      {
+        "seq": 4,
+        "name": "sqlite_autoindex_inventory_items_2",
+        "unique": 1,
+        "origin": "u",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "product_reference"
+          }
+        ]
+      },
+      {
+        "seq": 5,
+        "name": "sqlite_autoindex_inventory_items_1",
+        "unique": 1,
+        "origin": "pk",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 0,
+            "name": "id"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "inventory_movements",
+    "sql": "CREATE TABLE inventory_movements (\n      id TEXT PRIMARY KEY,\n      product_reference TEXT NOT NULL,\n      movement_type TEXT NOT NULL,\n      quantity INTEGER NOT NULL,\n      previous_quantity INTEGER NOT NULL,\n      new_quantity INTEGER NOT NULL,\n      reference_type TEXT,\n      reference_id TEXT,\n      admin_user_id TEXT REFERENCES admin_users(id) ON DELETE SET NULL,\n      note TEXT,\n      created_at DATETIME DEFAULT CURRENT_TIMESTAMP\n    )",
+    "rowCount": 114,
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "product_reference",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "movement_type",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "quantity",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "previous_quantity",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "new_quantity",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 6,
+        "name": "reference_type",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 7,
+        "name": "reference_id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 8,
+        "name": "admin_user_id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 9,
+        "name": "note",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 10,
+        "name": "created_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      }
+    ],
+    "foreignKeys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "admin_users",
+        "from": "admin_user_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "SET NULL",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "idx_inventory_movements_type",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 2,
+            "name": "movement_type"
+          }
+        ]
+      },
+      {
+        "seq": 1,
+        "name": "idx_inventory_movements_created_at",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 10,
+            "name": "created_at"
+          }
+        ]
+      },
+      {
+        "seq": 2,
+        "name": "idx_inventory_movements_product_ref",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "product_reference"
+          }
+        ]
+      },
+      {
+        "seq": 3,
+        "name": "sqlite_autoindex_inventory_movements_1",
+        "unique": 1,
+        "origin": "pk",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 0,
+            "name": "id"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "loyalty_accounts",
+    "sql": "CREATE TABLE loyalty_accounts (\n      customer_id TEXT PRIMARY KEY REFERENCES customers(id) ON DELETE CASCADE,\n      points_balance INTEGER NOT NULL DEFAULT 0 CHECK (points_balance >= 0),\n      total_earned INTEGER NOT NULL DEFAULT 0 CHECK (total_earned >= 0),\n      total_redeemed INTEGER NOT NULL DEFAULT 0 CHECK (total_redeemed >= 0),\n      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,\n      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP\n    )",
+    "rowCount": 0,
+    "columns": [
+      {
+        "cid": 0,
+        "name": "customer_id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "points_balance",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": "0",
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "total_earned",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": "0",
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "total_redeemed",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": "0",
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "created_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "updated_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      }
+    ],
+    "foreignKeys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "customers",
+        "from": "customer_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "sqlite_autoindex_loyalty_accounts_1",
+        "unique": 1,
+        "origin": "pk",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 0,
+            "name": "customer_id"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "loyalty_transactions",
+    "sql": "CREATE TABLE loyalty_transactions (\n      id TEXT PRIMARY KEY,\n      customer_id TEXT NOT NULL REFERENCES customers(id) ON DELETE CASCADE,\n      transaction_type TEXT NOT NULL,\n      points INTEGER NOT NULL,\n      reference_type TEXT,\n      reference_id TEXT,\n      description TEXT,\n      created_at DATETIME DEFAULT CURRENT_TIMESTAMP\n    )",
+    "rowCount": 0,
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "customer_id",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "transaction_type",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "points",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "reference_type",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "reference_id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 6,
+        "name": "description",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 7,
+        "name": "created_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      }
+    ],
+    "foreignKeys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "customers",
+        "from": "customer_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "idx_loyalty_tx_ref",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 4,
+            "name": "reference_type"
+          },
+          {
+            "seqno": 1,
+            "cid": 5,
+            "name": "reference_id"
+          }
+        ]
+      },
+      {
+        "seq": 1,
+        "name": "idx_loyalty_tx_customer_id",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "customer_id"
+          }
+        ]
+      },
+      {
+        "seq": 2,
+        "name": "sqlite_autoindex_loyalty_transactions_1",
+        "unique": 1,
+        "origin": "pk",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 0,
+            "name": "id"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "notifications",
+    "sql": "CREATE TABLE notifications (\n      id TEXT PRIMARY KEY,\n      customer_id TEXT NOT NULL REFERENCES customers(id) ON DELETE CASCADE,\n      title TEXT NOT NULL,\n      message TEXT NOT NULL,\n      type TEXT NOT NULL DEFAULT 'general',\n      is_read INTEGER NOT NULL DEFAULT 0,\n      reference_type TEXT,\n      reference_id TEXT,\n      created_at DATETIME DEFAULT CURRENT_TIMESTAMP\n    )",
+    "rowCount": 4,
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "customer_id",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "title",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "message",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "type",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "'general'",
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "is_read",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": "0",
+        "pk": 0
+      },
+      {
+        "cid": 6,
+        "name": "reference_type",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 7,
+        "name": "reference_id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 8,
+        "name": "created_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      }
+    ],
+    "foreignKeys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "customers",
+        "from": "customer_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "idx_notifications_is_read",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "customer_id"
+          },
+          {
+            "seqno": 1,
+            "cid": 5,
+            "name": "is_read"
+          }
+        ]
+      },
+      {
+        "seq": 1,
+        "name": "idx_notifications_customer_id",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "customer_id"
+          }
+        ]
+      },
+      {
+        "seq": 2,
+        "name": "sqlite_autoindex_notifications_1",
+        "unique": 1,
+        "origin": "pk",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 0,
+            "name": "id"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "order_events",
+    "sql": "CREATE TABLE order_events (\n      id TEXT PRIMARY KEY,\n      order_id TEXT NOT NULL REFERENCES orders(id) ON DELETE CASCADE,\n      event_type TEXT NOT NULL,\n      from_status TEXT,\n      to_status TEXT,\n      admin_user_id TEXT REFERENCES admin_users(id) ON DELETE SET NULL,\n      note TEXT,\n      created_at DATETIME DEFAULT CURRENT_TIMESTAMP\n    )",
+    "rowCount": 22,
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "order_id",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "event_type",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "from_status",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "to_status",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "admin_user_id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 6,
+        "name": "note",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 7,
+        "name": "created_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      }
+    ],
+    "foreignKeys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "admin_users",
+        "from": "admin_user_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "SET NULL",
+        "match": "NONE"
+      },
+      {
+        "id": 1,
+        "seq": 0,
+        "table": "orders",
+        "from": "order_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "idx_order_events_created_at",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 7,
+            "name": "created_at"
+          }
+        ]
+      },
+      {
+        "seq": 1,
+        "name": "idx_order_events_order_id",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "order_id"
+          }
+        ]
+      },
+      {
+        "seq": 2,
+        "name": "sqlite_autoindex_order_events_1",
+        "unique": 1,
+        "origin": "pk",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 0,
+            "name": "id"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "order_items",
+    "sql": "CREATE TABLE order_items (\n      id INTEGER PRIMARY KEY AUTOINCREMENT,\n      order_id TEXT NOT NULL REFERENCES orders(id) ON DELETE CASCADE,\n      product_document_id TEXT NOT NULL,\n      product_slug TEXT NOT NULL,\n      product_name TEXT NOT NULL,\n      sku TEXT NOT NULL,\n      product_image_url TEXT,\n      quantity INTEGER NOT NULL CHECK (quantity >= 1),\n      unit_price_paise INTEGER NOT NULL,\n      line_total_paise INTEGER NOT NULL,\n      created_at DATETIME DEFAULT CURRENT_TIMESTAMP\n    )",
+    "rowCount": 57,
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "INTEGER",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "order_id",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "product_document_id",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "product_slug",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "product_name",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "sku",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 6,
+        "name": "product_image_url",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 7,
+        "name": "quantity",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 8,
+        "name": "unit_price_paise",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 9,
+        "name": "line_total_paise",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 10,
+        "name": "created_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      }
+    ],
+    "foreignKeys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "orders",
+        "from": "order_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "idx_order_items_product_slug",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 3,
+            "name": "product_slug"
+          }
+        ]
+      },
+      {
+        "seq": 1,
+        "name": "idx_order_items_order_id",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "order_id"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "order_sequences",
+    "sql": "CREATE TABLE order_sequences (\n      name TEXT PRIMARY KEY,\n      current_val INTEGER NOT NULL\n    )",
+    "rowCount": 2,
+    "columns": [
+      {
+        "cid": 0,
+        "name": "name",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "current_val",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      }
+    ],
+    "foreignKeys": [],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "sqlite_autoindex_order_sequences_1",
+        "unique": 1,
+        "origin": "pk",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 0,
+            "name": "name"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "orders",
+    "sql": "CREATE TABLE orders (\n      id TEXT PRIMARY KEY,\n      order_number TEXT UNIQUE NOT NULL,\n      access_token TEXT NOT NULL,\n      cart_id TEXT REFERENCES carts(id),\n      idempotency_key TEXT UNIQUE,\n      customer_name TEXT NOT NULL,\n      customer_email TEXT NOT NULL,\n      customer_phone TEXT NOT NULL,\n      delivery_address_line1 TEXT NOT NULL,\n      delivery_address_line2 TEXT,\n      delivery_city TEXT NOT NULL,\n      delivery_state TEXT NOT NULL,\n      delivery_postal_code TEXT NOT NULL,\n      delivery_country TEXT NOT NULL DEFAULT 'India',\n      subtotal_paise INTEGER NOT NULL,\n      shipping_paise INTEGER NOT NULL,\n      discount_paise INTEGER NOT NULL DEFAULT 0,\n      tax_paise INTEGER NOT NULL DEFAULT 0,\n      grand_total_paise INTEGER NOT NULL,\n      currency TEXT NOT NULL DEFAULT 'INR',\n      payment_method TEXT NOT NULL DEFAULT 'cod',\n      payment_status TEXT NOT NULL DEFAULT 'unpaid',\n      order_status TEXT NOT NULL DEFAULT 'confirmed',\n      customer_note TEXT,\n      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,\n      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP\n    , customer_id TEXT REFERENCES customers(id) ON DELETE SET NULL, coupon_code TEXT)",
+    "rowCount": 77,
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "order_number",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "access_token",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "cart_id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "idempotency_key",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "customer_name",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 6,
+        "name": "customer_email",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 7,
+        "name": "customer_phone",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 8,
+        "name": "delivery_address_line1",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 9,
+        "name": "delivery_address_line2",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 10,
+        "name": "delivery_city",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 11,
+        "name": "delivery_state",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 12,
+        "name": "delivery_postal_code",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 13,
+        "name": "delivery_country",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "'India'",
+        "pk": 0
+      },
+      {
+        "cid": 14,
+        "name": "subtotal_paise",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 15,
+        "name": "shipping_paise",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 16,
+        "name": "discount_paise",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": "0",
+        "pk": 0
+      },
+      {
+        "cid": 17,
+        "name": "tax_paise",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": "0",
+        "pk": 0
+      },
+      {
+        "cid": 18,
+        "name": "grand_total_paise",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 19,
+        "name": "currency",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "'INR'",
+        "pk": 0
+      },
+      {
+        "cid": 20,
+        "name": "payment_method",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "'cod'",
+        "pk": 0
+      },
+      {
+        "cid": 21,
+        "name": "payment_status",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "'unpaid'",
+        "pk": 0
+      },
+      {
+        "cid": 22,
+        "name": "order_status",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "'confirmed'",
+        "pk": 0
+      },
+      {
+        "cid": 23,
+        "name": "customer_note",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 24,
+        "name": "created_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      },
+      {
+        "cid": 25,
+        "name": "updated_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      },
+      {
+        "cid": 26,
+        "name": "customer_id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 27,
+        "name": "coupon_code",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      }
+    ],
+    "foreignKeys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "customers",
+        "from": "customer_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "SET NULL",
+        "match": "NONE"
+      },
+      {
+        "id": 1,
+        "seq": 0,
+        "table": "carts",
+        "from": "cart_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "idx_orders_status",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 22,
+            "name": "order_status"
+          }
+        ]
+      },
+      {
+        "seq": 1,
+        "name": "idx_orders_customer_id",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 26,
+            "name": "customer_id"
+          }
+        ]
+      },
+      {
+        "seq": 2,
+        "name": "idx_orders_customer_name",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 5,
+            "name": "customer_name"
+          }
+        ]
+      },
+      {
+        "seq": 3,
+        "name": "idx_orders_customer_email",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 6,
+            "name": "customer_email"
+          }
+        ]
+      },
+      {
+        "seq": 4,
+        "name": "idx_orders_payment_status",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 21,
+            "name": "payment_status"
+          }
+        ]
+      },
+      {
+        "seq": 5,
+        "name": "idx_orders_order_status",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 22,
+            "name": "order_status"
+          }
+        ]
+      },
+      {
+        "seq": 6,
+        "name": "idx_orders_access_token",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 2,
+            "name": "access_token"
+          }
+        ]
+      },
+      {
+        "seq": 7,
+        "name": "idx_orders_created_at",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 24,
+            "name": "created_at"
+          }
+        ]
+      },
+      {
+        "seq": 8,
+        "name": "idx_orders_idempotency_key",
+        "unique": 1,
+        "origin": "c",
+        "partial": 1,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 4,
+            "name": "idempotency_key"
+          }
+        ]
+      },
+      {
+        "seq": 9,
+        "name": "idx_orders_order_number",
+        "unique": 1,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "order_number"
+          }
+        ]
+      },
+      {
+        "seq": 10,
+        "name": "sqlite_autoindex_orders_3",
+        "unique": 1,
+        "origin": "u",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 4,
+            "name": "idempotency_key"
+          }
+        ]
+      },
+      {
+        "seq": 11,
+        "name": "sqlite_autoindex_orders_2",
+        "unique": 1,
+        "origin": "u",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "order_number"
+          }
+        ]
+      },
+      {
+        "seq": 12,
+        "name": "sqlite_autoindex_orders_1",
+        "unique": 1,
+        "origin": "pk",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 0,
+            "name": "id"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "payments",
+    "sql": "CREATE TABLE payments (\n      id TEXT PRIMARY KEY,\n      order_id TEXT NOT NULL REFERENCES orders(id) ON DELETE CASCADE,\n      payment_reference TEXT UNIQUE NOT NULL,\n      provider TEXT NOT NULL DEFAULT 'cococraft_mock',\n      method TEXT NOT NULL,\n      amount_paise INTEGER NOT NULL,\n      currency TEXT NOT NULL DEFAULT 'INR',\n      status TEXT NOT NULL DEFAULT 'created',\n      attempt_number INTEGER NOT NULL DEFAULT 1,\n      idempotency_key TEXT UNIQUE,\n      provider_reference TEXT,\n      failure_code TEXT,\n      failure_message TEXT,\n      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,\n      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,\n      completed_at DATETIME\n    )",
+    "rowCount": 41,
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "order_id",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "payment_reference",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "provider",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "'cococraft_mock'",
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "method",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "amount_paise",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 6,
+        "name": "currency",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "'INR'",
+        "pk": 0
+      },
+      {
+        "cid": 7,
+        "name": "status",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "'created'",
+        "pk": 0
+      },
+      {
+        "cid": 8,
+        "name": "attempt_number",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": "1",
+        "pk": 0
+      },
+      {
+        "cid": 9,
+        "name": "idempotency_key",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 10,
+        "name": "provider_reference",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 11,
+        "name": "failure_code",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 12,
+        "name": "failure_message",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 13,
+        "name": "created_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      },
+      {
+        "cid": 14,
+        "name": "updated_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      },
+      {
+        "cid": 15,
+        "name": "completed_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      }
+    ],
+    "foreignKeys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "orders",
+        "from": "order_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "idx_payments_created_at",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 13,
+            "name": "created_at"
+          }
+        ]
+      },
+      {
+        "seq": 1,
+        "name": "idx_payments_idempotency_key",
+        "unique": 1,
+        "origin": "c",
+        "partial": 1,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 9,
+            "name": "idempotency_key"
+          }
+        ]
+      },
+      {
+        "seq": 2,
+        "name": "idx_payments_status",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 7,
+            "name": "status"
+          }
+        ]
+      },
+      {
+        "seq": 3,
+        "name": "idx_payments_payment_reference",
+        "unique": 1,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 2,
+            "name": "payment_reference"
+          }
+        ]
+      },
+      {
+        "seq": 4,
+        "name": "idx_payments_order_id",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "order_id"
+          }
+        ]
+      },
+      {
+        "seq": 5,
+        "name": "sqlite_autoindex_payments_3",
+        "unique": 1,
+        "origin": "u",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 9,
+            "name": "idempotency_key"
+          }
+        ]
+      },
+      {
+        "seq": 6,
+        "name": "sqlite_autoindex_payments_2",
+        "unique": 1,
+        "origin": "u",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 2,
+            "name": "payment_reference"
+          }
+        ]
+      },
+      {
+        "seq": 7,
+        "name": "sqlite_autoindex_payments_1",
+        "unique": 1,
+        "origin": "pk",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 0,
+            "name": "id"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "reviews",
+    "sql": "CREATE TABLE reviews (\n      id TEXT PRIMARY KEY,\n      customer_id TEXT NOT NULL REFERENCES customers(id) ON DELETE CASCADE,\n      product_reference TEXT NOT NULL,\n      order_id TEXT NOT NULL REFERENCES orders(id) ON DELETE CASCADE,\n      rating INTEGER NOT NULL CHECK (rating >= 1 AND rating <= 5),\n      title TEXT NOT NULL,\n      comment TEXT NOT NULL,\n      status TEXT NOT NULL DEFAULT 'pending',\n      customer_name TEXT,\n      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,\n      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP\n    )",
+    "rowCount": 4,
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "customer_id",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "product_reference",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "order_id",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "rating",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "title",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 6,
+        "name": "comment",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 7,
+        "name": "status",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "'pending'",
+        "pk": 0
+      },
+      {
+        "cid": 8,
+        "name": "customer_name",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 9,
+        "name": "created_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      },
+      {
+        "cid": 10,
+        "name": "updated_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      }
+    ],
+    "foreignKeys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "orders",
+        "from": "order_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      },
+      {
+        "id": 1,
+        "seq": 0,
+        "table": "customers",
+        "from": "customer_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "idx_reviews_customer_order_product",
+        "unique": 1,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "customer_id"
+          },
+          {
+            "seqno": 1,
+            "cid": 3,
+            "name": "order_id"
+          },
+          {
+            "seqno": 2,
+            "cid": 2,
+            "name": "product_reference"
+          }
+        ]
+      },
+      {
+        "seq": 1,
+        "name": "idx_reviews_status",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 7,
+            "name": "status"
+          }
+        ]
+      },
+      {
+        "seq": 2,
+        "name": "idx_reviews_customer_id",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "customer_id"
+          }
+        ]
+      },
+      {
+        "seq": 3,
+        "name": "idx_reviews_product_ref",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 2,
+            "name": "product_reference"
+          }
+        ]
+      },
+      {
+        "seq": 4,
+        "name": "sqlite_autoindex_reviews_1",
+        "unique": 1,
+        "origin": "pk",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 0,
+            "name": "id"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "stock_reservations",
+    "sql": "CREATE TABLE stock_reservations (\n      id TEXT PRIMARY KEY,\n      order_id TEXT NOT NULL REFERENCES orders(id) ON DELETE CASCADE,\n      product_reference TEXT NOT NULL,\n      quantity INTEGER NOT NULL CHECK (quantity >= 1),\n      status TEXT NOT NULL DEFAULT 'reserved',\n      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,\n      released_at DATETIME\n    )",
+    "rowCount": 24,
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "order_id",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "product_reference",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "quantity",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "status",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "'reserved'",
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "created_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      },
+      {
+        "cid": 6,
+        "name": "released_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      }
+    ],
+    "foreignKeys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "orders",
+        "from": "order_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "idx_stock_reservations_status",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 4,
+            "name": "status"
+          }
+        ]
+      },
+      {
+        "seq": 1,
+        "name": "idx_stock_reservations_product_ref",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 2,
+            "name": "product_reference"
+          }
+        ]
+      },
+      {
+        "seq": 2,
+        "name": "idx_stock_reservations_order_id",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "order_id"
+          }
+        ]
+      },
+      {
+        "seq": 3,
+        "name": "sqlite_autoindex_stock_reservations_1",
+        "unique": 1,
+        "origin": "pk",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 0,
+            "name": "id"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "system_metadata",
+    "sql": "CREATE TABLE system_metadata (\n      key TEXT PRIMARY KEY,\n      value TEXT NOT NULL,\n      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP\n    )",
+    "rowCount": 1,
+    "columns": [
+      {
+        "cid": 0,
+        "name": "key",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "value",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "updated_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      }
+    ],
+    "foreignKeys": [],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "sqlite_autoindex_system_metadata_1",
+        "unique": 1,
+        "origin": "pk",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 0,
+            "name": "key"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "wishlist_items",
+    "sql": "CREATE TABLE wishlist_items (\n      id TEXT PRIMARY KEY,\n      customer_id TEXT NOT NULL REFERENCES customers(id) ON DELETE CASCADE,\n      product_reference TEXT NOT NULL,\n      created_at DATETIME DEFAULT CURRENT_TIMESTAMP\n    )",
+    "rowCount": 6,
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "customer_id",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "product_reference",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "created_at",
+        "type": "DATETIME",
+        "notnull": 0,
+        "dflt_value": "CURRENT_TIMESTAMP",
+        "pk": 0
+      }
+    ],
+    "foreignKeys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "customers",
+        "from": "customer_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "idx_wishlist_customer_product",
+        "unique": 1,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "customer_id"
+          },
+          {
+            "seqno": 1,
+            "cid": 2,
+            "name": "product_reference"
+          }
+        ]
+      },
+      {
+        "seq": 1,
+        "name": "idx_wishlist_customer_id",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 1,
+            "name": "customer_id"
+          }
+        ]
+      },
+      {
+        "seq": 2,
+        "name": "sqlite_autoindex_wishlist_items_1",
+        "unique": 1,
+        "origin": "pk",
+        "partial": 0,
+        "columns": [
+          {
+            "seqno": 0,
+            "cid": 0,
+            "name": "id"
+          }
+        ]
+      }
+    ]
+  }
+]

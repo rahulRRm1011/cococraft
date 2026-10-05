@@ -1,8 +1,8 @@
-import { Database as DatabaseInstance } from 'better-sqlite3';
-import { getDatabase } from '../database/index.js';
+import { SupabaseClient } from '@supabase/supabase-js';
+import { getSupabase } from '../database/supabase.js';
 
 export abstract class BaseRepository {
-  protected get db(): DatabaseInstance {
-    return getDatabase();
+  protected get supabase(): SupabaseClient {
+    return getSupabase();
   }
 }
